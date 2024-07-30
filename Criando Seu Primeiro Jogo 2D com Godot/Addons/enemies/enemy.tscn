@@ -1,0 +1,72 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://addons/Pawn/Red/Pawn_Red.png" type="Texture" id=1]
+[ext_resource path="res://addons/enemies/follow_player.gd" type="Script" id=2]
+[ext_resource path="res://addons/enemies/enemy.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Died.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Meat_super.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Meat.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 19, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 960, 192, 192 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 192, 960, 192, 192 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 384, 960, 192, 192 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 576, 960, 192, 192 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 768, 960, 192, 192 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 960, 960, 192, 192 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="enemy" type="KinematicBody2D" groups=["Enemies"]]
+script = ExtResource( 3 )
+health = 8
+death_play = ExtResource( 4 )
+enemy_name = "Red Pawn"
+drop_chance_itens = [ 0.9, 0.1 ]
+drop_itens = [ ExtResource( 6 ), ExtResource( 5 ) ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 6 )
+shape = SubResource( 1 )
+
+[node name="enemy_1" type="AnimatedSprite" parent="."]
+frames = SubResource( 8 )
+frame = 3
+playing = true
+
+[node name="Follow_player" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, -29 )
